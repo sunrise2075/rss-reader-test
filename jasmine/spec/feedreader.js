@@ -91,6 +91,17 @@ $(function() {
          * 记住 loadFeed() 函数是异步的所以这个而是应该使用 Jasmine 的 beforeEach
          * 和异步的 done() 函数。
          */
+        beforeEach(function(done){
+            init(function(){
+                done();
+            });
+        });
+
+        it(" in feed container should exist", function(done){
+            var numOfEntry = $(".feed .entry-link .entry").length
+            expect(numOfEntry).toBeGreaterThan(0);
+            done();
+        });
 
         /* TODO: 写一个叫做 "New Feed Selection" 的测试用例 */
 
