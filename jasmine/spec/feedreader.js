@@ -91,14 +91,18 @@ $(function() {
          * 记住 loadFeed() 函数是异步的所以这个而是应该使用 Jasmine 的 beforeEach
          * 和异步的 done() 函数。
          */
+        //cache the first loading result for the first feed source
+        var initFeeds;
         beforeEach(function(done){
-            init(function(){
+            //load the 0 index feed source
+            loadFeed(0, function(){
                 done();
             });
         });
 
-        it(" in feed container should exist", function(done){
-            var numOfEntry = $(".feed .entry-link .entry").length
+        it(" in feed container are loaded successfully by ajax request", function(done){
+            var numOfEntry = $(".feed .entry-link .entry").length;
+            initFeeds = $(".feed").html();
             expect(numOfEntry).toBeGreaterThan(0);
             done();
         });
@@ -109,6 +113,22 @@ $(function() {
          * 写一个测试保证当用 loadFeed 函数加载一个新源的时候内容会真的改变。
          * 记住，loadFeed() 函数是异步的。
          */
+
+        describe("When new feed source is requested, ", function(){
+
+            beforeEach(function(done){
+                //load the 0 index feed source
+                loadFeed(1, function(){
+                    done();
+                });
+            });
+
+            it("the new feed content is different from the old ones", function(done){
+                var newFeeds =  $(".feed").html();
+                expect(newFeeds).not.toEqual(initFeeds);
+                done();
+            });
+        });
     })
 
 }());
