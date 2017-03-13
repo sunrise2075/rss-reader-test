@@ -91,7 +91,7 @@ $(function() {
          * 记住 loadFeed() 函数是异步的所以这个而是应该使用 Jasmine 的 beforeEach
          * 和异步的 done() 函数。
          */
-        //cache the first loading result for the first feed source
+        //cache the loading result for the first feed source
         var initFeeds;
         beforeEach(function(done){
             //load the 0 index feed source
